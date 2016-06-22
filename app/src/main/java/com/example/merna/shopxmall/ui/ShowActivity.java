@@ -15,16 +15,10 @@ import android.widget.ListView;
 import com.example.merna.shopxmall.Model.Shop;
 import com.example.merna.shopxmall.R;
 
-public class ShowActivity extends AppCompatActivity implements ShowActivityFragment.Callback{
+public class ShowActivity extends AppCompatActivity {
 
-    private boolean mTwoPane;
+//    private boolean mTwoPane;
 
-    private ListView mDrawerList;
-    private DrawerLayout mDrawerLayout;
-    private ArrayAdapter<String> mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
-    String[] mArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +27,17 @@ public class ShowActivity extends AppCompatActivity implements ShowActivityFragm
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        if (findViewById(R.id.shop_detail_container) != null) {
-            mTwoPane = true;
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.shop_detail_container, new DetailsActivityFragment(),
-                                DetailsActivityFragment.TAG)
-                        .commit();
-            }
-        } else {
-            mTwoPane = false;
-        }
+//        if (findViewById(R.id.shop_detail_container) != null) {
+//            mTwoPane = true;
+//            if (savedInstanceState == null) {
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.shop_detail_container, new DetailsActivityFragment(),
+//                                DetailsActivityFragment.TAG)
+//                        .commit();
+//            }
+//        } else {
+//            mTwoPane = false;
+//        }
 
 
 
@@ -55,24 +49,26 @@ public class ShowActivity extends AppCompatActivity implements ShowActivityFragm
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
     }
 
-    @Override
-    public void onItemSelected(Shop shop) {
-        if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putSerializable(DetailsActivityFragment.DETAIL_SHOP, shop);
+//    @Override
+//    public void onItemSelected(Shop shop) {
+//        if (mTwoPane) {
+//            Bundle arguments = new Bundle();
+//            arguments.putSerializable(DetailsActivityFragment.DETAIL_SHOP, shop);
+//
+//            DetailsActivityFragment fragment = new DetailsActivityFragment();
+//            fragment.setArguments(arguments);
+//
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.shop_detail_container, fragment, DetailsActivityFragment.TAG)
+//                    .commit();
+//        } else {
+//            Intent intent = new Intent(this, DetailsActivity.class)
+//                    .putExtra(DetailsActivityFragment.DETAIL_SHOP, shop);
+//            startActivity(intent);
+//        }
+//    }
 
-            DetailsActivityFragment fragment = new DetailsActivityFragment();
-            fragment.setArguments(arguments);
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.shop_detail_container, fragment, DetailsActivityFragment.TAG)
-                    .commit();
-        } else {
-            Intent intent = new Intent(this, DetailsActivity.class)
-                    .putExtra(DetailsActivityFragment.DETAIL_SHOP, shop);
-            startActivity(intent);
-        }
-    }
 }

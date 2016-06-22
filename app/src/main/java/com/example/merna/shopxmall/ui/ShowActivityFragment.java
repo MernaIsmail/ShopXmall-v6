@@ -69,9 +69,4 @@ public class ShowActivityFragment extends Fragment {
         return rootView;
     }
 
-
-
-    public interface Callback {
-        void onItemSelected(Shop shop);
-    }
 }

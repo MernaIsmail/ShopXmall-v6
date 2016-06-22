@@ -45,11 +45,16 @@
 
     <string-array name="nav_items">
         <item>Shops</item>
-        <item>Control panel</item>
+        <item>Reports</item>
+        <item>Add Area</item>
+        <item>Add category</item>
+        <item>Send notification</item>
         <item>Logout</item>
     </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_add">AddActivity</string>
+    <string name="title_activity_reports">Reports</string>
+    <string name="title_activity_add_area">AddAreaActivity</string>
 </resources>

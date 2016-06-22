@@ -1,6 +1,7 @@
-package com.example.merna.shopxmall;
+package com.example.merna.shopxmall.ui;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -10,13 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.merna.shopxmall.Model.Shop;
+import com.example.merna.shopxmall.R;
+import com.example.merna.shopxmall.ui.DetailsActivity;
+import com.example.merna.shopxmall.ui.DetailsActivityFragment;
 import com.example.merna.shopxmall.ui.ShowActivityFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private boolean mTwoPane;
 
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -24,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     String[] mArray;
+    ViewStub stub2,stub;
 
 
     @Override
@@ -45,14 +54,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
 //        setSupportActionBar(toolbar);
+        if (findViewById(R.id.shop_detail_container) != null) {
+            mTwoPane = true;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.shop_detail_container, new DetailsActivityFragment(),
+                                DetailsActivityFragment.TAG).commit();
+            }
+        } else {
+            mTwoPane = false;
+        }
 
         mArray = getResources().getStringArray(R.array.nav_items);
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+//        stub = (ViewStub) findViewById(R.id.content_right);
+//        stub.setLayoutResource(R.layout.activity_show);
+//        stub.inflate();
+//        stub2 = (ViewStub) findViewById(R.id.content_left);
+//        stub2.setLayoutResource(R.layout.activity_details);
+//        stub2.inflate();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content_frame, new ShowActivityFragment()).commit();
+        ft.replace(R.id.content_frame, new MainActivityFragment()).commit();
 
         addDrawerItems();
         setupDrawer();
@@ -69,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                ft.replace(R.id.content_frame, new ShowActivityFragment()).commit();
+                ft.replace(R.id.content_frame, new MainActivityFragment()).commit();
                 break;
             case 1:
-//                ft.replace(R.id.content_frame, new controlActivityFragment()).commit();
+                ft.replace(R.id.content_frame, new ReportsFragment()).commit();
                 break;
-
+            case 2:
+                ft.replace(R.id.content_frame, new AddAreaActivityFragment()).commit();
+                break;
             default:
                 break;
         }

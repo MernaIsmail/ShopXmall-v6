@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,9 @@ import android.widget.Toast;
 
 import com.example.merna.shopxmall.Model.Shop;
 import com.example.merna.shopxmall.mPicasso.PicassoClient;
+import com.example.merna.shopxmall.ui.DetailsActivityFragment;
+import com.example.merna.shopxmall.ui.MainActivity;
+import com.example.merna.shopxmall.ui.ShowActivity;
 import com.example.merna.shopxmall.utils.Constants;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -31,7 +35,7 @@ import com.firebase.ui.FirebaseListAdapter;
 public class shopAdapter extends FirebaseListAdapter<Shop> {
     Activity activity;
 
-    public shopAdapter(FragmentActivity activity, Class<Shop> modelClass, int modelLayout, Query ref) {
+    public shopAdapter(Activity activity, Class<Shop> modelClass, int modelLayout, Query ref) {
         super(activity, modelClass, modelLayout, ref);
         this.activity = activity;
     }
@@ -56,6 +60,23 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
         if (model.getLogo() != null) {
             PicassoClient.downloadImg(activity, img, logo);
         }
+
+        detailIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("clicled", String.valueOf(position));
+
+                Bundle arguments = new Bundle();
+                arguments.putSerializable("DETAIL_SHOP", model);
+
+                DetailsActivityFragment fragment = new DetailsActivityFragment();
+                fragment.setArguments(arguments);
+
+                ((MainActivity) activity).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.shop_detail_container, fragment, DetailsActivityFragment.TAG)
+                        .commit();
+            }
+        });
 
     }
 }
