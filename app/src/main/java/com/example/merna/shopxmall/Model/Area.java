@@ -11,6 +11,8 @@ public class Area {
     String imgArea;
     String areaName;
     String uuidBeacon;
+    String major;
+    String manor;
 
     public Area() {
     }
@@ -19,6 +21,13 @@ public class Area {
         this.areaName = areaName;
         this.uuidBeacon = uuidBeacon;
         this.imgArea = imgArea;
+    }
+
+    public Area(String areaName, String uuidBeacon, String major, String manor) {
+        this.areaName = areaName;
+        this.uuidBeacon = uuidBeacon;
+        this.major = major;
+        this.manor = manor;
     }
 
     public String getImgArea() {
@@ -31,5 +40,13 @@ public class Area {
 
     public String getAreaName() {
         return areaName;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public String getManor() {
+        return manor;
     }
 }

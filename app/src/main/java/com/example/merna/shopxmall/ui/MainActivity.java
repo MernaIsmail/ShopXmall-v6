@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     String[] mArray;
-    ViewStub stub2,stub;
+
 
 
     @Override
@@ -46,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        mActivityTitle = (String) title;
+        getSupportActionBar().setTitle(mActivityTitle);
     }
 
     @Override
@@ -101,13 +108,20 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 ft.replace(R.id.content_frame, new AddAreaActivityFragment()).commit();
                 break;
+            case 3:
+                ft.replace(R.id.content_frame, new AddCategoryFragment()).commit();
+                break;
+            case 4:
+                ft.replace(R.id.content_frame, new SendNotificationFragment()).commit();
+                break;
+
             default:
                 break;
         }
 
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-//            setTitle(mArray[position]);
+        setTitle(mArray[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
 
 

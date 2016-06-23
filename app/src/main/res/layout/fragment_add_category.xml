@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#fff"
+    android:orientation="horizontal"
+    tools:context="com.example.merna.shopxmall.ui.AddCategoryFragment"
+    tools:showIn="@layout/activity_add_category">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        >
+
+        <ImageButton
+            android:id="@+id/imgCategory"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/add_pic"
+            />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"/>
+        <EditText
+            android:id="@+id/etxtNameCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border"
+            android:hint="ex.drink"
+            android:padding="10dp"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/addCategory"
+            android:layout_width="105dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonshape"
+            android:text="Add"
+            android:textColor="#fff"
+            android:textSize="12.5dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:background="#6C687D" />
+
+    <GridView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/gridviewCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="5dp"
+        android:numColumns="4"
+        android:columnWidth="50dip"
+        android:verticalSpacing="20dp"
+        />
+
+</LinearLayout>

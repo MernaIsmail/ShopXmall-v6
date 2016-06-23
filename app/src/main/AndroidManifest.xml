@@ -19,16 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Login.LoginActivity"
+            android:label="shopXmall"
+            android:noHistory="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/MyMaterialTheme">
+        </activity>
+        <activity
             android:name=".ui.ShowActivity"
             android:label="shopx"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.MainActivity" />
         <activity
             android:name=".ui.DetailsActivity"
             android:label="@string/title_activity_details"
@@ -41,12 +42,34 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.Reports"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_reports"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.AddAreaActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_add_area"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.AddCategory"
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_add_category"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SendNotification"
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_send_notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.SplashScreen"
+            android:screenOrientation="landscape"
+            android:label="shopXmall"
+            android:theme="@style/MyMaterialTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
