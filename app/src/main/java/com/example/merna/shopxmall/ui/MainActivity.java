@@ -1,7 +1,6 @@
 package com.example.merna.shopxmall.ui;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -11,16 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.merna.shopxmall.Model.Shop;
+import com.example.merna.shopxmall.Login.LoginActivityFragment;
 import com.example.merna.shopxmall.R;
-import com.example.merna.shopxmall.ui.DetailsActivity;
-import com.example.merna.shopxmall.ui.DetailsActivityFragment;
-import com.example.merna.shopxmall.ui.ShowActivityFragment;
+import com.example.merna.shopxmall.utils.Constants;
+import com.firebase.client.Firebase;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
 //        setSupportActionBar(toolbar);
         if (findViewById(R.id.shop_detail_container) != null) {
-            mTwoPane = true;
+            mTwoPane
+                    = true;
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.shop_detail_container, new DetailsActivityFragment(),
@@ -114,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
             case 4:
                 ft.replace(R.id.content_frame, new SendNotificationFragment()).commit();
                 break;
+            case 5:
+                Firebase ref=new Firebase(Constants.FIREBASE_URL);
+                ref.unauth();
+                ft.replace(R.id.content_frame, new LoginActivityFragment()).commit();
+                break;
+
 
             default:
                 break;

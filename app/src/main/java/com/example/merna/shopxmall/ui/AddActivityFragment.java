@@ -213,7 +213,7 @@ public class AddActivityFragment extends Fragment {
                                 String uid = (String) result.get("uid");
                                 newShop = new Shop(mShopName, mEmail, mPassword, imageFile, mCallContact, mFbContact, mTwitterContact,mAreaInMall,mCategory);
                                 createUserInFirebaseHelper(uid, newShop);
-                                Intent intent = new Intent(getContext(), ShowActivity.class);
+                                Intent intent = new Intent(getContext(), MainActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
                             }
@@ -369,7 +369,7 @@ public class AddActivityFragment extends Fragment {
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Intent in = new Intent(getContext(), ShowActivity.class);
+                                Intent in = new Intent(getContext(), MainActivity.class);
                                 startActivity(in);
                             }
                         })

@@ -23,8 +23,7 @@
             android:label="shopXmall"
             android:noHistory="true"
             android:screenOrientation="landscape"
-            android:theme="@style/MyMaterialTheme">
-        </activity>
+            android:theme="@style/MyMaterialTheme"></activity>
         <activity
             android:name=".ui.ShowActivity"
             android:label="shopx"
@@ -39,37 +38,42 @@
             android:name=".ui.AddActivity"
             android:label="@string/title_activity_add"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".ui.Reports"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_reports"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.AddAreaActivity"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_add_area"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.AddCategory"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_add_category"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SendNotification"
-            android:screenOrientation="landscape"
             android:label="@string/title_activity_send_notification"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SplashScreen"
-            android:screenOrientation="landscape"
             android:label="shopXmall"
+            android:screenOrientation="landscape"
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.ShowOffers"
+            android:label="@string/title_activity_show_offers"
+            android:theme="@style/MyMaterialTheme"></activity>
     </application>
 
 </manifest>

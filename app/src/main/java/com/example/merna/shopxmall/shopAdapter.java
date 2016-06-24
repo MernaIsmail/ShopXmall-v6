@@ -22,6 +22,8 @@ import com.example.merna.shopxmall.mPicasso.PicassoClient;
 import com.example.merna.shopxmall.ui.DetailsActivityFragment;
 import com.example.merna.shopxmall.ui.MainActivity;
 import com.example.merna.shopxmall.ui.ShowActivity;
+import com.example.merna.shopxmall.ui.ShowOffers;
+import com.example.merna.shopxmall.ui.ShowOffersFragment;
 import com.example.merna.shopxmall.utils.Constants;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -47,8 +49,8 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
         TextView name = (TextView) v.findViewById(R.id.ShopName);
         TextView category = (TextView) v.findViewById(R.id.ShopCategory);
         ImageView reportIcon = (ImageView) v.findViewById(R.id.reportIcon);
-        ImageView offerIcon = (ImageView) v.findViewById(R.id.offerIcon);
-        ImageView detailIcon = (ImageView) v.findViewById(R.id.detailsIcon);
+        final ImageView offerIcon = (ImageView) v.findViewById(R.id.offerIcon);
+        final ImageView detailIcon = (ImageView) v.findViewById(R.id.detailsIcon);
         ImageView logo = (ImageView) v.findViewById(R.id.ShopLogo);
 
 
@@ -66,6 +68,9 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
             public void onClick(View v) {
                 Log.d("clicled", String.valueOf(position));
 
+                detailIcon.setImageResource(R.drawable.analysis_icon_active);
+                offerIcon.setImageResource(R.drawable.offers_icon_unactive);
+
                 Bundle arguments = new Bundle();
                 arguments.putSerializable("DETAIL_SHOP", model);
 
@@ -78,5 +83,24 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
             }
         });
 
+        offerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                detailIcon.setImageResource(R.drawable.analysis_icon_unactive);
+                offerIcon.setImageResource(R.drawable.offers_icon_active);
+
+                Bundle arguments = new Bundle();
+                arguments.putSerializable("DETAIL_OFFER", getRef(position).getKey());
+                Log.e("adapter",getRef(position).getKey());
+                ShowOffersFragment fragment = new ShowOffersFragment();
+                fragment.setArguments(arguments);
+
+
+                ((MainActivity) activity).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.shop_detail_container, fragment, ShowOffersFragment.TAG)
+                        .commit();
+            }
+        });
     }
 }

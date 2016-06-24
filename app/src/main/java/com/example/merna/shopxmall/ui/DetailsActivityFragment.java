@@ -62,4 +62,5 @@ public class DetailsActivityFragment extends Fragment {
 
         return rootView;
     }
+
 }

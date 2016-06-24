@@ -47,42 +47,49 @@ public class LoginActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (preferences.getString("login", "no").equals("yes")) {
-            Intent i = new Intent(getContext(), MainActivity.class);
-            startActivity(i);
+        mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
+        mEditTextEmailInput = (EditText) rootView.findViewById(R.id.edit_text_email);
+        mEditTextPasswordInput = (EditText) rootView.findViewById(R.id.edit_text_password);
+        LoginBtn = (Button) rootView.findViewById(R.id.login_with_password);
+        mAuthProgressDialog = new ProgressDialog(getContext());
+        mAuthProgressDialog.setTitle(getString(R.string.progress_dialog_loading));
+        mAuthProgressDialog.setMessage(getString(R.string.progress_dialog_authenticating_with_firebase));
+        mAuthProgressDialog.setCancelable(false);
 
-        } else {
-            mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
-            mEditTextEmailInput = (EditText) rootView.findViewById(R.id.edit_text_email);
-            mEditTextPasswordInput = (EditText) rootView.findViewById(R.id.edit_text_password);
-            LoginBtn = (Button) rootView.findViewById(R.id.login_with_password);
-            mAuthProgressDialog = new ProgressDialog(getContext());
-            mAuthProgressDialog.setTitle(getString(R.string.progress_dialog_loading));
-            mAuthProgressDialog.setMessage(getString(R.string.progress_dialog_authenticating_with_firebase));
-            mAuthProgressDialog.setCancelable(false);
+        mFirebaseRef.addAuthStateListener(new Firebase.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(AuthData authData) {
+                if (authData != null) {
+                    // user is logged in
+                    Intent i = new Intent(getContext(), MainActivity.class);
+                    startActivity(i);
+                } else {
+                    // user is not logged in
+                    LoginBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            signInPassword();
+                        }
+                    });
 
-            LoginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    signInPassword();
+                    /**
+                     * Call signInPassword() when user taps "Done" keyboard action
+                     */
+                    mEditTextPasswordInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
+                            if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                                signInPassword();
+                            }
+                            return true;
+                        }
+                    });
                 }
-            });
+            }
+        });
 
-            /**
-             * Call signInPassword() when user taps "Done" keyboard action
-             */
-            mEditTextPasswordInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
 
-                    if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                        signInPassword();
-                    }
-                    return true;
-                }
-            });
-        }
         return rootView;
 
     }
@@ -137,9 +144,9 @@ public class LoginActivityFragment extends Fragment {
                         type=(String)dataSnapshot.child("type").getValue();
                         Log.e("testtype",type);
                         if (type.equals("Mall")) {
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("login", "yes");
-                            editor.commit();
+//                            SharedPreferences.Editor editor = preferences.edit();
+//                            editor.putString("login", "yes");
+//                            editor.commit();
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
