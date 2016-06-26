@@ -30,6 +30,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseListAdapter;
 
+import java.util.List;
+
 /**
  * Created by Merna on 5/1/2016.
  */
@@ -41,6 +43,9 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
         super(activity, modelClass, modelLayout, ref);
         this.activity = activity;
     }
+
+
+
 
     @Override
     protected void populateView(View v, final Shop model, final int position) {
@@ -72,7 +77,7 @@ public class shopAdapter extends FirebaseListAdapter<Shop> {
                 offerIcon.setImageResource(R.drawable.offers_icon_unactive);
 
                 Bundle arguments = new Bundle();
-                arguments.putSerializable("DETAIL_SHOP", model);
+                arguments.putSerializable("DETAIL_SHOP", getRef(position).getKey());
 
                 DetailsActivityFragment fragment = new DetailsActivityFragment();
                 fragment.setArguments(arguments);

@@ -10,7 +10,7 @@
     <meta-data
         android:name="CLOUDINARY_URL"
         android:value="cloudinary://959113829349873:3HLEZodVmn0OJjBtCXaMp0_98eg@shopxfx" />
-
+    
     <application
         android:name=".MallApplication"
         android:allowBackup="true"
@@ -27,7 +27,14 @@
         <activity
             android:name=".ui.ShowActivity"
             android:label="shopx"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".ui.MainActivity" />
         <activity
             android:name=".ui.DetailsActivity"

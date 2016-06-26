@@ -1,11 +1,13 @@
 package com.example.merna.shopxmall.Login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,6 +40,13 @@ public class LoginActivityFragment extends Fragment {
     Button LoginBtn;
     EditText mEditTextEmailInput, mEditTextPasswordInput;
     String type;
+    Context cn;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        cn=  context;
+    }
 
     public LoginActivityFragment() {
     }
@@ -59,9 +68,10 @@ public class LoginActivityFragment extends Fragment {
         mFirebaseRef.addAuthStateListener(new Firebase.AuthStateListener() {
             @Override
             public void onAuthStateChanged(AuthData authData) {
+                Log.d("authdata in login", String.valueOf(authData));
                 if (authData != null) {
                     // user is logged in
-                    Intent i = new Intent(getContext(), MainActivity.class);
+                    Intent i = new Intent(cn, MainActivity.class);
                     startActivity(i);
                 } else {
                     // user is not logged in

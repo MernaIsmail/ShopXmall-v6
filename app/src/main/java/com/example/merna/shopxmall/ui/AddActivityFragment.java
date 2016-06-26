@@ -56,8 +56,8 @@ public class AddActivityFragment extends Fragment {
     String mEmail, mPassword, mShopName, mCallContact, mFbContact, mTwitterContact,mAreaInMall,mCategory;
     String imageFile = null;
     Shop newShop;
-    Shop toEdit = null;
-    String uuidRef;
+    String toEdit = null;
+    String uuidRef,email,pass;
     Uri imageUri;
     Cloudinary cloudinary;
     String Generated_Id;
@@ -158,9 +158,9 @@ public class AddActivityFragment extends Fragment {
                     }
 
                     if (toEdit != null) { //update
-                        Firebase eRef = new Firebase(Constants.FIREBASE_URL).child("Shops").child(uuidRef);
+                        Firebase eRef = new Firebase(Constants.FIREBASE_URL).child("Shops").child(toEdit);
                         Firebase oRef = new Firebase(Constants.FIREBASE_URL);
-                        oRef.changeEmail(toEdit.getShopEmail(), toEdit.getPassword(), mEmail, new Firebase.ResultHandler() {
+                        oRef.changeEmail(email, pass, mEmail, new Firebase.ResultHandler() {
                             @Override
                             public void onSuccess() {
                                 Log.d("change email", "done");
@@ -171,7 +171,7 @@ public class AddActivityFragment extends Fragment {
 
                             }
                         });
-                        oRef.changePassword(mEmail, toEdit.getPassword(), mPassword, new Firebase.ResultHandler() {
+                        oRef.changePassword(mEmail, pass, mPassword, new Firebase.ResultHandler() {
                             @Override
                             public void onSuccess() {
 
@@ -195,7 +195,7 @@ public class AddActivityFragment extends Fragment {
                         updates.put("areaInMAll",mAreaInMall);
                         updates.put("category",mCategory);
                         eRef.updateChildren(updates);
-                        Intent intent = new Intent(getContext(), ShowActivity.class);
+                        Intent intent = new Intent(getContext(),MainActivity.class);
                         startActivity(intent);
                         getActivity().finish();
                     } else {
@@ -432,7 +432,6 @@ public class AddActivityFragment extends Fragment {
             }
         });
 
-
         spinner = (Spinner) rootView.findViewById(R.id.category_spinner);
         Firebase CateegoryRef = new Firebase(Constants.FIREBASE_URL).child("Categories");
         CateegoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -478,8 +477,8 @@ public class AddActivityFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         // String shopUUID = intent.getStringExtra("editobj");
-        toEdit = (Shop) intent.getSerializableExtra("editobj");
-        uuidRef = intent.getStringExtra("uuid");
+        toEdit = (String) intent.getSerializableExtra("uuid");
+        //uuidRef = intent.getStringExtra("uuid");
 
         mFirebaseRef = new Firebase(Constants.FIREBASE_URL);
         mEditTextShopName = (EditText) rootView.findViewById(R.id.shopName);
@@ -500,13 +499,29 @@ public class AddActivityFragment extends Fragment {
         });
 
         if (toEdit != null) {
-            mEditTextShopName.setText(toEdit.getShopName());
-            mEditTextEmailInput.setText(toEdit.getShopEmail());
-            mEditTextPasswordInput.setText(toEdit.getPassword());
-            mEditTextcallInput.setText(toEdit.getPhone());
-            mEditTextFbContact.setText(toEdit.getFbContact());
-            mEditTextTwitterContact.setText(toEdit.getTwitterContact());
-            PicassoClient.downloadImg(getActivity(), toEdit.getLogo(), addPic);
+            Firebase shopData = new Firebase(Constants.FIREBASE_URL).child("Shops").child(toEdit);
+            shopData.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    email= (String) dataSnapshot.child("shopEmail").getValue();
+                    pass= (String) dataSnapshot.child("password").getValue();
+                    mEditTextEmailInput.setText((CharSequence) dataSnapshot.child("shopEmail").getValue());
+                    mEditTextPasswordInput.setText((CharSequence) dataSnapshot.child("password").getValue());
+                    mEditTextShopName.setText((CharSequence) dataSnapshot.child("shopName").getValue());
+                    mEditTextcallInput.setText((CharSequence) dataSnapshot.child("phone").getValue());
+                    mEditTextFbContact.setText((CharSequence) dataSnapshot.child("fbContact").getValue());
+                    mEditTextTwitterContact.setText((CharSequence) dataSnapshot.child("twitterContact").getValue());
+                    String uri = (String) dataSnapshot.child("logo").getValue();
+                    PicassoClient.downloadImg(getActivity(), uri, addPic);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+
+
+            });
 
         }
 

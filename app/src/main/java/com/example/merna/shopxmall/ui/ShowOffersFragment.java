@@ -77,8 +77,8 @@ public class ShowOffersFragment extends Fragment {
 
         }
 
-
-
         return rootView;
     }
+
+
 }

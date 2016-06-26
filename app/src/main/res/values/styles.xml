@@ -16,6 +16,7 @@
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">#7d3971</item>
         <item name="colorPrimaryDark">#5F2d56</item>
+        <item name="colorAccent">#7d3971</item>
         <!--<item name="android:windowBackground">@drawable/bg</item>-->
         <!--<item name="colorAccent">#FFFFFF</item>-->
         <!--<item name="colorAccent">@color/colorAccent</item>-->

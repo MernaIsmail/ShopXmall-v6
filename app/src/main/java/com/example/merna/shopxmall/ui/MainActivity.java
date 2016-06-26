@@ -1,6 +1,7 @@
 package com.example.merna.shopxmall.ui;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -8,15 +9,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.merna.shopxmall.Login.LoginActivity;
 import com.example.merna.shopxmall.Login.LoginActivityFragment;
 import com.example.merna.shopxmall.R;
 import com.example.merna.shopxmall.utils.Constants;
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 
 
@@ -30,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     String[] mArray;
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_show, menu);
+        return true;
+    }
 
 
 
@@ -57,8 +71,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
-//        setSupportActionBar(toolbar);
+//         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//         Toolbar secondaryToolbar = (Toolbar) findViewById(R.id.secondaryToolbar);
+//         setSupportActionBar(toolbar);
+
+
         if (findViewById(R.id.shop_detail_container) != null) {
             mTwoPane
                     = true;
@@ -116,7 +133,11 @@ public class MainActivity extends AppCompatActivity {
             case 5:
                 Firebase ref=new Firebase(Constants.FIREBASE_URL);
                 ref.unauth();
-                ft.replace(R.id.content_frame, new LoginActivityFragment()).commit();
+                AuthData authData = ref.getAuth();
+                Log.d("authdata in main", String.valueOf(authData));
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+              //  ft.replace(R.id.content_frame, new LoginActivityFragment()).commit();
                 break;
 
 
@@ -174,9 +195,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_Edit) {
+//            Toast.makeText(this,"edit" , Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        if (id == R.id.action_Delete) {
+//            Toast.makeText(this,"edit" , Toast.LENGTH_LONG).show();
+//            return true;
+//        }
 
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
